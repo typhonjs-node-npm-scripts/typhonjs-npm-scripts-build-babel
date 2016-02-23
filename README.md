@@ -1,2 +1,2 @@
 # typhonjs-npm-scripts-build
-Provides ES6+ build scripts for all TyphonJS NPM modules.
+Provides NPM scripts for building ES6+ projects using Babel for all TyphonJS NPM modules and beyond.
