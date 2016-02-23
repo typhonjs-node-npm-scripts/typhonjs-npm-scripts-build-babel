@@ -1,0 +1,48 @@
+{
+  "name": "typhonjs-npm-scripts-build-babel",
+  "version": "0.0.1",
+  "homepage": "https://github.com/typhonjs-node-npm/typhonjs-npm-scripts-build-babel",
+  "description": "Provides NPM scripts for building ES6+ projects using Babel for all TyphonJS NPM modules and beyond.",
+  "license": "MPL-2.0",
+  "author": {
+    "name": "Mike Leahy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/typhonjs-node-npm/typhonjs-npm-scripts-build-babel/typhonjs-npm-scripts-build-babel.git"
+  },
+  "maintainers": [
+    {
+      "name": "Mike Leahy",
+      "email": "support@js.typhonrt.org"
+    }
+  ],
+  "dependencies": {
+    "babel-core": "^6.5.1",
+    "babel-cli": "^6.5.1",
+    "babel-preset-es2015": "^6.5.0",
+    "fs-extra": "^0.26.5",
+    "strip-json-comments": "^2.0.0"
+  },
+  "devDependencies": {
+  },
+  "keywords": [
+    "typhonjs",
+    "node",
+    "npm",
+    "script",
+    "babel",
+    "build",
+    "es6"
+  ],
+  "scripts": {
+    "test": "node ./test/scripts/test.js"
+  },
+  "files": [
+    "scripts"
+  ],
+  "directories": {},
+  "bugs": {
+    "url": "https://github.com/typhonjs-node-npm/typhonjs-npm-scripts-build-babel/issues"
+  }
+}
