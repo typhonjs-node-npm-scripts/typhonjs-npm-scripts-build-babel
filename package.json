@@ -35,6 +35,9 @@
     "build",
     "es6"
   ],
+  "engines" : {
+    "npm" : ">=3.x"
+  },
   "scripts": {
     "test": "node ./test/scripts/test.js"
   },
