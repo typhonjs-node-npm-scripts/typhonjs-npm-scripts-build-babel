@@ -49,7 +49,7 @@ var configInfo = JSON.parse(stripJsonComments(fs.readFileSync('./npm-scripts.jso
 if (typeof configInfo.build !== 'object')
 {
    throw new Error(
-    "TyphonJS NPM script (build) error: build entry is not an object or is missing in 'npm-scripts.json'.");
+    "TyphonJS NPM script (build) error: 'build' entry is not an object or is missing in 'npm-scripts.json'.");
 }
 
 
@@ -57,7 +57,7 @@ if (typeof configInfo.build !== 'object')
 if (typeof configInfo.build.babel !== 'object')
 {
    throw new Error(
-    "TyphonJS NPM script (build) error: build.babel entry is not an object or is missing in 'npm-scripts.json'.");
+    "TyphonJS NPM script (build) error: 'build.babel' entry is not an object or is missing in 'npm-scripts.json'.");
 }
 
 var babelConfig = configInfo.build.babel;
@@ -66,14 +66,15 @@ var babelConfig = configInfo.build.babel;
 if (typeof babelConfig.source !== 'string')
 {
    throw new Error(
-    "TyphonJS NPM script (build) error: build.babel.source entry is not a string or is missing in 'npm-scripts.json'.");
+    "TyphonJS NPM script (build) error: 'build.babel.source' entry is not a string or is missing in "
+    + "'npm-scripts.json'.");
 }
 
 // Verify that destination entry is a string.
 if (typeof babelConfig.destination !== 'string')
 {
    throw new Error(
-    "TyphonJS NPM script (build) error: build.babel.destination entry is not a string or is missing in "
+    "TyphonJS NPM script (build) error: 'build.babel.destination' entry is not a string or is missing in "
      + "'npm-scripts.json'.");
 }
 
@@ -82,7 +83,7 @@ try
 {
    if (!fs.statSync(babelConfig.source).isDirectory())
    {
-      throw new Error("build.babel.source entry is not a directory: " + babelConfig.source);
+      throw new Error("'build.babel.source' entry is not a directory: " + babelConfig.source);
    }
 }
 catch(err)
@@ -98,7 +99,7 @@ try
 {
    if (!fs.statSync(babelConfig.destination).isDirectory())
    {
-      throw new Error("build.babel.destination entry is not a directory: " + babelConfig.destination);
+      throw new Error("'build.babel.destination' entry is not a directory: " + babelConfig.destination);
    }
 }
 catch(err)
@@ -115,7 +116,7 @@ if (typeof babelConfig.options !== 'undefined')
    if (!Array.isArray(babelConfig.options))
    {
       throw new Error(
-       "TyphonJS NPM script (build) error: build.babel.options entry is not an array in 'npm-scripts.json'.");
+       "TyphonJS NPM script (build) error: 'build.babel.options' entry is not an array in 'npm-scripts.json'.");
    }
 
    exec += ' ' + babelConfig.options.join(' ');
