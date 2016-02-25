@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * build -- Initiates the Babel build process. A valid `npm-build-babel.json` configuration file must be located in the
+ * build -- Initiates the Babel build process. A valid `npm-build.json` configuration file must be located in the
  * root path. This configuration file contains the following options:
  * ```
  * (string)          source - The source directory.
@@ -15,12 +15,12 @@ var cp =                require('child_process');
 var fs =                require('fs-extra');
 var stripJsonComments = require('strip-json-comments');
 
-// Verify that `npm-build-babel.json` exists.
+// Verify that `npm-build.json` exists.
 try
 {
-   if (!fs.statSync('./npm-build-babel.json').isFile())
+   if (!fs.statSync('./npm-build.json').isFile())
    {
-      throw new Error("'npm-build-babel.json' not found in root path.");
+      throw new Error("'npm-build.json' not found in root path.");
    }
 }
 catch(err)
@@ -41,29 +41,36 @@ catch(err)
    throw new Error("TyphonJS NPM script (build) error: " + err);
 }
 
-// Load `npm-build-babel.json` and strip comments.
-var configInfo = JSON.parse(stripJsonComments(fs.readFileSync('./npm-build-babel.json', 'utf-8')));
+// Load `npm-build.json` and strip comments.
+var configInfo = JSON.parse(stripJsonComments(fs.readFileSync('./npm-build.json', 'utf-8')));
 
-// Verify that source entry is a string.
-if (typeof configInfo.source !== 'string')
+// Verify that babel entry is an object.
+if (typeof configInfo.babel !== 'object')
 {
    throw new Error(
-    "TyphonJS NPM script (build) error: source entry is not a string or is missing in 'npm-build-babel.json'.");
+    "TyphonJS NPM script (build) error: babel entry is not an object or is missing in 'npm-build.json'.");
+}
+
+// Verify that source entry is a string.
+if (typeof configInfo.babel.source !== 'string')
+{
+   throw new Error(
+    "TyphonJS NPM script (build) error: source entry is not a string or is missing in 'npm-build.json'.");
 }
 
 // Verify that destination entry is a string.
-if (typeof configInfo.destination !== 'string')
+if (typeof configInfo.babel.destination !== 'string')
 {
    throw new Error(
-    "TyphonJS NPM script (build) error: destination entry is not a string or is missing in 'npm-build-babel.json'.");
+    "TyphonJS NPM script (build) error: destination entry is not a string or is missing in 'npm-build.json'.");
 }
 
 // Verify that source entry is a directory.
 try
 {
-   if (!fs.statSync(configInfo.source).isDirectory())
+   if (!fs.statSync(configInfo.babel.source).isDirectory())
    {
-      throw new Error("source entry is not a directory: " + configInfo.source);
+      throw new Error("source entry is not a directory: " + configInfo.babel.source);
    }
 }
 catch(err)
@@ -72,14 +79,14 @@ catch(err)
 }
 
 // Create or empty destination directory.
-fs.emptyDirSync(configInfo.destination);
+fs.emptyDirSync(configInfo.babel.destination);
 
 // Verify that destination entry is a directory.
 try
 {
-   if (!fs.statSync(configInfo.destination).isDirectory())
+   if (!fs.statSync(configInfo.babel.destination).isDirectory())
    {
-      throw new Error("destination entry is not a directory: " + configInfo.destination);
+      throw new Error("destination entry is not a directory: " + configInfo.babel.destination);
    }
 }
 catch(err)
@@ -88,18 +95,18 @@ catch(err)
 }
 
 // Build base execution command.
-var exec = './node_modules/.bin/babel ' + configInfo.source + ' -d ' + configInfo.destination;
+var exec = './node_modules/.bin/babel ' + configInfo.babel.source + ' -d ' + configInfo.babel.destination;
 
 // Add any optional parameters.
-if (typeof configInfo.options !== 'undefined')
+if (typeof configInfo.babel.options !== 'undefined')
 {
-   if (!Array.isArray(configInfo.options))
+   if (!Array.isArray(configInfo.babel.options))
    {
       throw new Error(
-       "TyphonJS NPM script (build) error: options entry is not an array in 'npm-build-babel.json'.");
+       "TyphonJS NPM script (build) error: options entry is not an array in 'npm-build.json'.");
    }
 
-   exec += ' ' + configInfo.options.join(' ');
+   exec += ' ' + configInfo.babel.options.join(' ');
 }
 
 // Notify what command is being executed then execute it.
@@ -107,9 +114,9 @@ process.stdout.write('Executing: ' + exec + '\n');
 cp.execSync(exec, { stdio: 'inherit' });
 
 // Verify that there are files / dirs in destination directory. If the directory is empty then fail.
-var files = fs.readdirSync(configInfo.destination);
+var files = fs.readdirSync(configInfo.babel.destination);
 if (files.length === 0)
 {
    throw new Error(
-    "TyphonJS NPM script (build) error: empty destination directory: " + configInfo.destination);
+    "TyphonJS NPM script (build) error: empty destination directory: " + configInfo.babel.destination);
 }

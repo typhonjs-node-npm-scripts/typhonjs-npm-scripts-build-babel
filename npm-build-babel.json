@@ -1,9 +1,0 @@
-/**
- * You can provide comments in npm-build-babel.json
- */
-{
-   "source": "test/src",
-   "destination": "test/dist",
-
-   "options": ["--source-maps true"]
-}
