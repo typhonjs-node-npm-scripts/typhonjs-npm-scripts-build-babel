@@ -1,5 +1,5 @@
 /**
- * You can provide comments in npm-build.json
+ * You can provide comments in `npm-scripts.json`.
  */
 {
    "build":
