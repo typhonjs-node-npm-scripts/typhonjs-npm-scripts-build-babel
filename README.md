@@ -16,7 +16,7 @@ For a comprehensive ES6 build / testing / publishing NPM module please see [typh
 
 ------
 
-To configure the prepublish script provide this entry in `package.json` scripts entry:
+To configure the build script provide this entry in `package.json` scripts entry:
 
 ```
   "devDependencies": {
