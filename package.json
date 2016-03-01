@@ -36,7 +36,6 @@
     "build",
     "es6"
   ],
-  "engineStrict": true,
   "engines" : {
     "npm" : ">=3.x"
   },
