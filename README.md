@@ -10,7 +10,7 @@
 
 Provides NPM scripts for building ES6 projects using Babel for all TyphonJS NPM modules and beyond.
 
-This NPM module uses entries defined in the `build.babel` entry located in `npm-scripts.json` in the root path of a project. 
+This NPM module uses entries defined in the `build.babel` entry located in `.npmscriptrc` in the root path of a project. 
 
 For a comprehensive ES6 build / testing / publishing NPM module please see [typhonjs-npm-build-test](https://www.npmjs.com/package/typhonjs-npm-build-test) as it combines this module for transpiling with Babel along with pre-publish detection via [typhonjs-npm-scripts-publish](https://www.npmjs.com/package/typhonjs-npm-scripts-publish) and [typhonjs-npm-scripts-test-mocha](https://www.npmjs.com/package/typhonjs-npm-scripts-test-mocha). For a full listing of all TyphonJS NPM script modules available please see [typhonjs-node-npm](https://github.com/typhonjs-node-npm) organization on GitHub.
 
@@ -27,7 +27,7 @@ To configure the build script provide this entry in `package.json` scripts entry
   },
 ```
 
-`npm-scripts.json` must be defined in the root path and contain an object hash `build` with a `babel` hash
+`.npmscriptrc` must be defined in the root path and contain a JSON formatted object hash `build` with a `babel` hash
 with the following options:
 ```
 (string)          source - The source directory.
@@ -38,7 +38,7 @@ with the following options:
 
 Please note that you need a [.babelrc](https://babeljs.io/docs/usage/babelrc/) file in the root path for Babel configurations. Or you can provide any of these runtime options in the options entry. 
 
-A basic configuration for transpiling ES6 NPM modules is designating the source directory and the destination directory.  An example of defining these parameters in `npm-scripts.json` follows:
+A basic configuration for transpiling ES6 NPM modules is designating the source directory and the destination directory.  An example of defining these parameters in `.npmscriptrc` follows:
 ```
 {
    "build":
@@ -48,4 +48,4 @@ A basic configuration for transpiling ES6 NPM modules is designating the source 
 }
 ```
 
-Please note that you can add comments to `npm-scripts.json`. Also please note that the build script performs a final sanity check to ensure that there are files / directories in the destination directory otherwise an exception is thrown. 
+Please note that you can add comments to `.npmscriptrc`. Also please note that the build script performs a final sanity check to ensure that there are files / directories in the destination directory otherwise an exception is thrown. 
