@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * build -- Initiates the Babel build process. A valid `npm-scripts.json` configuration file must be located in the
+ * build -- Initiates the Babel build process. A valid `.npmscriptrc` configuration file must be located in the
  * root path. This configuration file must contain a `build` hash with a `babel` hash entry that contains the
  * following options:
  * ```
@@ -16,12 +16,12 @@ var cp =                require('child_process');
 var fs =                require('fs-extra');
 var stripJsonComments = require('strip-json-comments');
 
-// Verify that `npm-scripts.json` exists.
+// Verify that `.npmscriptrc` exists.
 try
 {
-   if (!fs.statSync('./npm-scripts.json').isFile())
+   if (!fs.statSync('./.npmscriptrc').isFile())
    {
-      throw new Error("'npm-scripts.json' not found in root path.");
+      throw new Error("'.npmscriptrc' not found in root path.");
    }
 }
 catch(err)
@@ -42,14 +42,14 @@ catch(err)
    throw new Error("TyphonJS NPM script (build) error: " + err);
 }
 
-// Load `npm-scripts.json` and strip comments.
-var configInfo = JSON.parse(stripJsonComments(fs.readFileSync('./npm-scripts.json', 'utf-8')));
+// Load `.npmscriptrc` and strip comments.
+var configInfo = JSON.parse(stripJsonComments(fs.readFileSync('./.npmscriptrc', 'utf-8')));
 
 // Verify that `build` entry is an object.
 if (typeof configInfo.build !== 'object')
 {
    throw new Error(
-    "TyphonJS NPM script (build) error: 'build' entry is not an object or is missing in 'npm-scripts.json'.");
+    "TyphonJS NPM script (build) error: 'build' entry is not an object or is missing in '.npmscriptrc'.");
 }
 
 
@@ -57,7 +57,7 @@ if (typeof configInfo.build !== 'object')
 if (typeof configInfo.build.babel !== 'object')
 {
    throw new Error(
-    "TyphonJS NPM script (build) error: 'build.babel' entry is not an object or is missing in 'npm-scripts.json'.");
+    "TyphonJS NPM script (build) error: 'build.babel' entry is not an object or is missing in '.npmscriptrc'.");
 }
 
 var babelConfig = configInfo.build.babel;
@@ -67,7 +67,7 @@ if (typeof babelConfig.source !== 'string')
 {
    throw new Error(
     "TyphonJS NPM script (build) error: 'build.babel.source' entry is not a string or is missing in "
-    + "'npm-scripts.json'.");
+    + "'.npmscriptrc'.");
 }
 
 // Verify that destination entry is a string.
@@ -75,7 +75,7 @@ if (typeof babelConfig.destination !== 'string')
 {
    throw new Error(
     "TyphonJS NPM script (build) error: 'build.babel.destination' entry is not a string or is missing in "
-     + "'npm-scripts.json'.");
+     + "'.npmscriptrc'.");
 }
 
 // Verify that source entry is a directory.
@@ -116,7 +116,7 @@ if (typeof babelConfig.options !== 'undefined')
    if (!Array.isArray(babelConfig.options))
    {
       throw new Error(
-       "TyphonJS NPM script (build) error: 'build.babel.options' entry is not an array in 'npm-scripts.json'.");
+       "TyphonJS NPM script (build) error: 'build.babel.options' entry is not an array in '.npmscriptrc'.");
    }
 
    exec += ' ' + babelConfig.options.join(' ');
