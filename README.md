@@ -6,7 +6,7 @@
 [![Gitter](https://img.shields.io/gitter/room/typhonjs/TyphonJS.svg)](https://gitter.im/typhonjs/TyphonJS)
 
 [![Build Status](https://travis-ci.org/typhonjs-node-npm-scripts/typhonjs-npm-scripts-build-babel.svg?branch=master)](https://travis-ci.org/typhonjs-node-npm-scripts/typhonjs-npm-scripts-build-babel)
-[![Dependency Status](https://www.versioneye.com/user/projects/56cea7226b21e5003d4742ac/badge.svg?style=flat)](https://www.versioneye.com/user/projects/56cea7226b21e5003d4742ac)
+[![Dependency Status](https://www.versioneye.com/user/projects/56e5a006df573d00472cd43c/badge.svg?style=flat)](https://www.versioneye.com/user/projects/56e5a006df573d00472cd43c)
 
 Provides NPM scripts for building ES6 projects using Babel for all TyphonJS NPM modules and beyond.
 
@@ -20,7 +20,7 @@ To configure the build script provide this entry in `package.json` scripts entry
 
 ```
   "devDependencies": {
-    "typhonjs-npm-scripts-build-babel": "^0.0.7"
+    "typhonjs-npm-scripts-build-babel": "^0.0.11"
   },
   "scripts": {
     "build": "babel-node ./node_modules/typhonjs-npm-scripts-build-babel/scripts/build.js"
