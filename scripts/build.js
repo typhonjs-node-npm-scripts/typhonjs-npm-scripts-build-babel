@@ -17,6 +17,7 @@ var fs =                require('fs-extra');
 var stripJsonComments = require('strip-json-comments');
 
 // Verify that `.npmscriptrc` exists.
+/* istanbul ignore next */
 try
 {
    if (!fs.statSync('./.npmscriptrc').isFile())
@@ -30,6 +31,7 @@ catch(err)
 }
 
 // Verify that `Babel` exists.
+/* istanbul ignore next */
 try
 {
    if (!fs.statSync('./node_modules/.bin/babel').isFile())
@@ -46,6 +48,7 @@ catch(err)
 var configInfo = JSON.parse(stripJsonComments(fs.readFileSync('./.npmscriptrc', 'utf-8')));
 
 // Verify that `build` entry is an object.
+/* istanbul ignore if */
 if (typeof configInfo.build !== 'object')
 {
    throw new Error(
@@ -54,6 +57,7 @@ if (typeof configInfo.build !== 'object')
 
 
 // Verify that `build.babel` entry is an object.
+/* istanbul ignore if */
 if (typeof configInfo.build.babel !== 'object')
 {
    throw new Error(
@@ -63,6 +67,7 @@ if (typeof configInfo.build.babel !== 'object')
 var babelConfig = configInfo.build.babel;
 
 // Verify that source entry is a string.
+/* istanbul ignore if */
 if (typeof babelConfig.source !== 'string')
 {
    throw new Error(
@@ -71,6 +76,7 @@ if (typeof babelConfig.source !== 'string')
 }
 
 // Verify that destination entry is a string.
+/* istanbul ignore if */
 if (typeof babelConfig.destination !== 'string')
 {
    throw new Error(
@@ -79,6 +85,7 @@ if (typeof babelConfig.destination !== 'string')
 }
 
 // Verify that source entry is a directory.
+/* istanbul ignore next */
 try
 {
    if (!fs.statSync(babelConfig.source).isDirectory())
@@ -95,6 +102,7 @@ catch(err)
 fs.emptyDirSync(babelConfig.destination);
 
 // Verify that destination entry is a directory.
+/* istanbul ignore next */
 try
 {
    if (!fs.statSync(babelConfig.destination).isDirectory())
@@ -113,6 +121,7 @@ var exec = './node_modules/.bin/babel ' + babelConfig.source + ' -d ' + babelCon
 // Add any optional parameters.
 if (typeof babelConfig.options !== 'undefined')
 {
+   /* istanbul ignore if */
    if (!Array.isArray(babelConfig.options))
    {
       throw new Error(
