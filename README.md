@@ -20,7 +20,7 @@ To configure the build script provide this entry in `package.json` scripts entry
 
 ```
   "devDependencies": {
-    "typhonjs-npm-scripts-build-babel": "^0.0.11"
+    "typhonjs-npm-scripts-build-babel": "^0.0.10"
   },
   "scripts": {
     "build": "babel-node ./node_modules/typhonjs-npm-scripts-build-babel/scripts/build.js"
