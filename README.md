@@ -15,8 +15,8 @@ Provides NPM scripts for building ES6 projects using Babel for all TyphonJS NPM 
 This NPM module uses entries defined in the `build.babel` entry located in `.npmscriptrc` in the root path of a project. 
 
 In addition the following Babel modules are installed that are handy for ES6 NPM modules:
-[babel-plugin-add-module-exports](https://www.npmjs.com/package/babel-plugin-add-module-exports)
-[babel-plugin-module-alias](https://www.npmjs.com/package/babel-plugin-module-alias)
+- [babel-plugin-add-module-exports](https://www.npmjs.com/package/babel-plugin-add-module-exports)
+- [babel-plugin-module-alias](https://www.npmjs.com/package/babel-plugin-module-alias)
 
 For a comprehensive ES6 build / testing / publishing NPM module please see [typhonjs-npm-build-test](https://www.npmjs.com/package/typhonjs-npm-build-test) as it combines this module along with transpiling ES6 sources with Babel, pre-publish script detection, ESDoc dependencies, testing with Mocha / Istanbul and an Istanbul instrumentation hook for JSPM / SystemJS tests. For a full listing of all TyphonJS NPM script modules available please see [typhonjs-node-npm-scripts](https://github.com/typhonjs-node-npm-scripts) organization on GitHub.
 
