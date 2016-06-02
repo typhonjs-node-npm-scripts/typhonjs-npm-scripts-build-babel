@@ -1,4 +1,4 @@
-![typhonjs-npm-scripts-build-babel](http://i.imgur.com/g6jTz6E.png)
+![typhonjs-npm-scripts-build-babel](https://i.imgur.com/g6jTz6E.png)
 
 [![NPM](https://img.shields.io/npm/v/typhonjs-npm-scripts-build-babel.svg?label=npm)](https://www.npmjs.com/package/typhonjs-npm-scripts-build-babel)
 [![Code Style](https://img.shields.io/badge/code%20style-allman-yellowgreen.svg?style=flat)](https://en.wikipedia.org/wiki/Indent_style#Allman_style)
@@ -8,9 +8,15 @@
 [![Build Status](https://travis-ci.org/typhonjs-node-npm-scripts/typhonjs-npm-scripts-build-babel.svg?branch=master)](https://travis-ci.org/typhonjs-node-npm-scripts/typhonjs-npm-scripts-build-babel)
 [![Dependency Status](https://www.versioneye.com/user/projects/56e5a006df573d00472cd43c/badge.svg?style=flat)](https://www.versioneye.com/user/projects/56e5a006df573d00472cd43c)
 
+Requirements: Node v5+ / NPM 3+
+
 Provides NPM scripts for building ES6 projects using Babel for all TyphonJS NPM modules and beyond.
 
 This NPM module uses entries defined in the `build.babel` entry located in `.npmscriptrc` in the root path of a project. 
+
+In addition the following Babel modules are installed that are handy for ES6 NPM modules:
+[babel-plugin-add-module-exports](https://www.npmjs.com/package/babel-plugin-add-module-exports)
+[babel-plugin-module-alias](https://www.npmjs.com/package/babel-plugin-module-alias)
 
 For a comprehensive ES6 build / testing / publishing NPM module please see [typhonjs-npm-build-test](https://www.npmjs.com/package/typhonjs-npm-build-test) as it combines this module along with transpiling ES6 sources with Babel, pre-publish script detection, ESDoc dependencies, testing with Mocha / Istanbul and an Istanbul instrumentation hook for JSPM / SystemJS tests. For a full listing of all TyphonJS NPM script modules available please see [typhonjs-node-npm-scripts](https://github.com/typhonjs-node-npm-scripts) organization on GitHub.
 
@@ -20,7 +26,7 @@ To configure the build script provide this entry in `package.json` scripts entry
 
 ```
   "devDependencies": {
-    "typhonjs-npm-scripts-build-babel": "^0.1.0"
+    "typhonjs-npm-scripts-build-babel": "^0.2.0"
   },
   "scripts": {
     "build": "babel-node ./node_modules/typhonjs-npm-scripts-build-babel/scripts/build.js"
