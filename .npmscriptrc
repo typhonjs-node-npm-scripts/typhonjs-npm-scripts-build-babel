@@ -1,5 +1,5 @@
 /**
- * You can provide comments in `npm-scripts.json`.
+ * You can provide comments in `.npmscriptrc`.
  */
 {
    "build":
@@ -9,6 +9,9 @@
          "source": "test/src",
          "destination": "test/dist",
          "options": ["--source-maps true"]
-      }
+      },
+      "copy": [{ "source": "./test/data2", "destination": "./test/dist"}],
+      "scripts": ["cp ./test/data/test.json ./test/dist/test.json"],
+      "chmod": [{ "path": "./test/dist/TestDummy.js", "mode": "755"}]
    }
 }
