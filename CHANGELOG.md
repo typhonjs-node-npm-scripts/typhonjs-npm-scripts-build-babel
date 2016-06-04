@@ -1,3 +1,6 @@
+## 0.3.0 (2016-06-03)
+Added extra actions to run after babel transpilation including copying files, running commands / scripts, and chmod of files.
+
 ## 0.2.0 (2016-06-02)
 Added the following Babel sub-modules that are handy for ES6 NPM modules:
 - [babel-plugin-add-module-exports](https://www.npmjs.com/package/babel-plugin-add-module-exports)
