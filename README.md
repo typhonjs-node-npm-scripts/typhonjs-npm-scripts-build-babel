@@ -18,6 +18,8 @@ In addition the following Babel modules are installed that are handy for ES6 NPM
 - [babel-plugin-add-module-exports](https://www.npmjs.com/package/babel-plugin-add-module-exports)
 - [babel-plugin-module-alias](https://www.npmjs.com/package/babel-plugin-module-alias)
 
+For the latest significant changes please see the [CHANGELOG](https://github.com/typhonjs-node-npm-scripts/typhonjs-npm-scripts-build-babel/blob/master/CHANGELOG.md).
+
 For a comprehensive ES6 build / testing / publishing NPM module please see [typhonjs-npm-build-test](https://www.npmjs.com/package/typhonjs-npm-build-test) as it combines this module along with transpiling ES6 sources with Babel, pre-publish script detection, ESDoc dependencies, testing with Mocha / Istanbul and an Istanbul instrumentation hook for JSPM / SystemJS tests. For a full listing of all TyphonJS NPM script modules available please see [typhonjs-node-npm-scripts](https://github.com/typhonjs-node-npm-scripts) organization on GitHub.
 
 ------
@@ -26,7 +28,7 @@ To configure the build script provide this entry in `package.json` scripts entry
 
 ```
   "devDependencies": {
-    "typhonjs-npm-scripts-build-babel": "^0.2.0"
+    "typhonjs-npm-scripts-build-babel": "^0.3.0"
   },
   "scripts": {
     "build": "babel-node ./node_modules/typhonjs-npm-scripts-build-babel/scripts/build.js"
@@ -44,12 +46,58 @@ with the following options:
 
 Please note that you need a [.babelrc](https://babeljs.io/docs/usage/babelrc/) file in the root path for Babel configurations. Or you can provide any of these runtime options in the options entry. 
 
+------
+
+Optionally in the `build` hash additional actions to complete after transpiling are available that are executed in
+the order described below.
+
+Add a `copy` hash entry to copy files or directories. The copy entry must be an array of object hashes with the
+following options:
+```
+(string)          source - The source file or directory.
+(string)          destination - The destination file or directory.
+```
+
+Add a `scripts` hash entry to execute a series of commands / scripts. The scripts entry must be an array of strings
+to execute via `child_process->execSync`:
+```
+(string)          A command to execute.
+```
+
+Add a `chmod` hash entry to execute a mode change on files. The chmod entry must be an array of object hashes with
+the following options:
+```
+(string)          path - A path to a file.
+(string)          mode - The new mode for the file.
+```
+
+------
+
 A basic configuration for transpiling ES6 NPM modules is designating the source directory and the destination directory.  An example of defining these parameters in `.npmscriptrc` follows:
 ```
 {
    "build":
    {
       "babel": { "source": "src", "destination": "dist" }
+   }
+}
+```
+
+The basic configuration with optional actions follows:
+```
+{
+   "build":
+   {
+      "babel": { "source": "src", "destination": "dist" },
+
+      // Copy templates
+      "copy": [{ "source": "./src/templates", "destination": "./dist/templates" }],
+
+      // Run an NPM script (defined in `package.json`).
+      "scripts": ["npm run ascript"],
+
+      // chmod the CLI entry point to executable.
+      "chmod": [{ "path": "./dist/ModuleCLI.js", "mode": "755" }]
    }
 }
 ```
