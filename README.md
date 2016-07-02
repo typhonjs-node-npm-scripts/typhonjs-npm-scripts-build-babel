@@ -22,6 +22,8 @@ For the latest significant changes please see the [CHANGELOG](https://github.com
 
 For a comprehensive ES6 build / testing / publishing NPM module please see [typhonjs-npm-build-test](https://www.npmjs.com/package/typhonjs-npm-build-test) as it combines this module along with transpiling ES6 sources with Babel, pre-publish script detection, ESDoc dependencies, testing with Mocha / Istanbul and an Istanbul instrumentation hook for JSPM / SystemJS tests. For a full listing of all TyphonJS NPM script modules available please see [typhonjs-node-npm-scripts](https://github.com/typhonjs-node-npm-scripts) organization on GitHub.
 
+Please also take note of this major NPM publish bug that affects a wide range of Node / NPM versions. Basically, there is a chance that publishing may omit files. It has bitten TyphonJS NPM module publishing many times.
+
 ------
 
 To configure the build script provide this entry in `package.json` scripts entry:
