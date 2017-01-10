@@ -1,6 +1,6 @@
 {
   "name": "typhonjs-npm-scripts-build-babel",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "homepage": "https://github.com/typhonjs-node-npm-scripts/typhonjs-npm-scripts-build-babel",
   "description": "Provides NPM scripts for building ES6 projects using Babel for all TyphonJS NPM modules and beyond.",
   "license": "MPL-2.0",
