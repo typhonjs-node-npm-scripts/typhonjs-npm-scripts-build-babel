@@ -1,3 +1,10 @@
+## 0.4.0 (2017-01-10)
+- Upgraded fs-extra - ^1.0.0
+- Added babel-preset-latest - ^6.0.0 to pull in all the latest presets / removed just the 2015 preset.
+- Added babel-plugin-transform-runtime - ^6.0.0
+- Added babel-plugin-module-resolver - ^2.0.0 which is a replacement for babel-plugin-module-alias for the time being
+babel-plugin-module-alias will also remain as a dependency for this release, but will be removed in the next release.
+
 ## 0.3.0 (2016-06-03)
 Added extra actions to run after babel transpilation including copying files, running commands / scripts, and chmod of files.
 
