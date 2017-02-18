@@ -1,3 +1,10 @@
+## 0.5.0 (2017-02-18)
+- Upgraded fs-extra - ^2.0.0
+- Upgraded typhonjs-npm-scripts-runner - ^0.3.0
+- Added babel-eslint - ^7.0.0
+- Added babel-preset-stage-2 - ^6.0.0
+- Removed babel-plugin-module-alias
+
 ## 0.4.0 (2017-01-10)
 - Upgraded fs-extra - ^1.0.0
 - Added babel-preset-latest - ^6.0.0 to pull in all the latest presets / removed just the 2015 preset.
