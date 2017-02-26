@@ -12,11 +12,16 @@ Requirements: Node v5+ / NPM 3+
 
 Provides NPM scripts for building ES6 projects using Babel for all TyphonJS NPM modules and beyond.
 
-This NPM module uses entries defined in the `build.babel` entry located in `.npmscriptrc` in the root path of a project. 
+This NPM module uses entries defined in the `build.babel` entry located in `.npmscriptrc` or `.npmscriptrc.js` in the 
+root path of a project. An optional argument may be supplied to change the entry from `build.babel` to `<custom>.babel`.
 
-In addition the following Babel modules are installed that are handy for ES6 NPM modules:
+In addition the following Babel modules are installed that are handy for ES6+ development:
+- [babel-eslint](https://www.npmjs.com/package/babel-eslint)
 - [babel-plugin-add-module-exports](https://www.npmjs.com/package/babel-plugin-add-module-exports)
-- [babel-plugin-module-alias](https://www.npmjs.com/package/babel-plugin-module-alias)
+- [babel-plugin-module-resolver](https://www.npmjs.com/package/babel-plugin-module-resolver)
+- [babel-plugin-transform-runtime](https://www.npmjs.com/package/babel-plugin-transform-runtime)
+- [babel-preset-latest](https://www.npmjs.com/package/babel-preset-latest)
+- [babel-preset-stage-2](https://www.npmjs.com/package/babel-preset-stage-2)
 
 For the latest significant changes please see the [CHANGELOG](https://github.com/typhonjs-node-npm-scripts/typhonjs-npm-scripts-build-babel/blob/master/CHANGELOG.md).
 
@@ -28,10 +33,10 @@ To configure the build script provide this entry in `package.json` scripts entry
 
 ```
   "devDependencies": {
-    "typhonjs-npm-scripts-build-babel": "^0.5.0"
+    "typhonjs-npm-scripts-build-babel": "^0.6.0"
   },
   "scripts": {
-    "build": "babel-node ./node_modules/typhonjs-npm-scripts-build-babel/scripts/build.js"
+    "build": "babel-node ./node_modules/typhonjs-npm-scripts-build-babel/scripts/build.js <optional custom build entry>"
   },
 ```
 
@@ -102,4 +107,4 @@ The basic configuration with optional actions follows:
 }
 ```
 
-Please note that you can add comments to `.npmscriptrc`. Also please note that the build script performs a final sanity check to ensure that there are files / directories in the destination directory otherwise an exception is thrown. 
+Please note that you can add comments to `.npmscriptrc` and that `.npmscriptrc.js` is required and needs to use `module.exports`. Also please note that the build script performs a final sanity check to ensure that there are files / directories in the destination directory otherwise an exception is thrown. 

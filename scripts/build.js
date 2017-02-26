@@ -39,18 +39,12 @@ var cp =                require('child_process');
 var fs =                require('fs-extra');
 var stripJsonComments = require('strip-json-comments');
 
-// Verify that `.npmscriptrc` exists.
-/* istanbul ignore next */
-try
+var buildEntry = 'build';
+
+// Potentially set a new testEntry.
+if (typeof process.argv[2] === 'string')
 {
-   if (!fs.statSync('./.npmscriptrc').isFile())
-   {
-      throw new Error("'.npmscriptrc' not found in root path.");
-   }
-}
-catch(err)
-{
-   throw new Error("typhonjs-npm-scripts-build-babel error: " + err);
+   buildEntry = process.argv[2];
 }
 
 // Verify that `Babel` exists.
@@ -67,35 +61,63 @@ catch(err)
    throw new Error("typhonjs-npm-scripts-build-babel error: " + err);
 }
 
-// Load `.npmscriptrc` and strip comments.
-var configInfo = JSON.parse(stripJsonComments(fs.readFileSync('./.npmscriptrc', 'utf-8')));
+var configInfo;
+
+// Attempt to require `.npmscriptrc.js`
+/* istanbul ignore next */
+try
+{
+   if (fs.statSync('./.npmscriptrc.js').isFile())
+   {
+      configInfo = require('./.npmscriptrc.js');
+   }
+}
+catch (err) { /* nop */ }
+
+// Attempt to load `.npmscriptrc` and strip comments.
+/* istanbul ignore next */
+try
+{
+   if (fs.statSync('./.npmscriptrc').isFile())
+   {
+      configInfo = JSON.parse(stripJsonComments(fs.readFileSync('./.npmscriptrc', 'utf-8')));
+   }
+}
+catch (err) { /* nop */ }
+
+// Exit now if no configInfo object has been loaded.
+if (typeof configInfo !== 'object')
+{
+   throw new Error("TyphonJS NPM script (build-babel) could not load `./npmscriptrc.js` or `./npmscriptrc`.");
+}
 
 // Verify that `build` entry is an object.
 /* istanbul ignore if */
-if (typeof configInfo.build !== 'object')
+if (typeof configInfo[buildEntry] !== 'object')
 {
    throw new Error(
-    "typhonjs-npm-scripts-build-babel error: 'build' entry is not an object or is missing in '.npmscriptrc'.");
+    "typhonjs-npm-scripts-build-babel error: '" + buildEntry +
+     "' entry is not an object or is missing in config file.");
 }
-
 
 // Verify that `build.babel` entry is an object.
 /* istanbul ignore if */
-if (typeof configInfo.build.babel !== 'object')
+if (typeof configInfo[buildEntry].babel !== 'object')
 {
    throw new Error(
-    "typhonjs-npm-scripts-build-babel error: 'build.babel' entry is not an object or is missing in '.npmscriptrc'.");
+    "typhonjs-npm-scripts-build-babel error: '" + buildEntry +
+     ".babel' entry is not an object or is missing in config file.");
 }
 
-var babelConfig = configInfo.build.babel;
+var babelConfig = configInfo[buildEntry].babel;
 
 // Verify that source entry is a string.
 /* istanbul ignore if */
 if (typeof babelConfig.source !== 'string')
 {
    throw new Error(
-    "typhonjs-npm-scripts-build-babel error: 'build.babel.source' entry is not a string or is missing in "
-    + "'.npmscriptrc'.");
+    "typhonjs-npm-scripts-build-babel error: '" + buildEntry + ".babel.source' entry is not a string or is missing in "
+    + "config file.");
 }
 
 // Verify that destination entry is a string.
@@ -104,7 +126,7 @@ if (typeof babelConfig.destination !== 'string')
 {
    throw new Error(
     "typhonjs-npm-scripts-build-babel error: 'build.babel.destination' entry is not a string or is missing in "
-     + "'.npmscriptrc'.");
+     + "config file.");
 }
 
 // Verify that source entry is a directory.
@@ -113,7 +135,7 @@ try
 {
    if (!fs.statSync(babelConfig.source).isDirectory())
    {
-      throw new Error("'build.babel.source' entry is not a directory: " + babelConfig.source);
+      throw new Error("'" + buildEntry + ".babel.source' entry is not a directory: " + babelConfig.source);
    }
 }
 catch(err)
@@ -130,7 +152,7 @@ try
 {
    if (!fs.statSync(babelConfig.destination).isDirectory())
    {
-      throw new Error("'build.babel.destination' entry is not a directory: " + babelConfig.destination);
+      throw new Error("'" + buildEntry + "babel.destination' entry is not a directory: " + babelConfig.destination);
    }
 }
 catch(err)
@@ -148,7 +170,8 @@ if (typeof babelConfig.options !== 'undefined')
    if (!Array.isArray(babelConfig.options))
    {
       throw new Error(
-       "typhonjs-npm-scripts-build-babel error: 'build.babel.options' entry is not an `array` in '.npmscriptrc'.");
+       "typhonjs-npm-scripts-build-babel error: '" + buildEntry +
+        ".babel.options' entry is not an `array` in '.npmscriptrc'.");
    }
 
    exec += ' ' + babelConfig.options.join(' ');
@@ -164,26 +187,26 @@ var cntr;
 // Copy files -------------------------------------------------------------------------------------------------------
 
 // Potentially copy files if a copy array is present
-if (Array.isArray(configInfo.build.copy))
+if (Array.isArray(configInfo[buildEntry].copy))
 {
-   for (cntr = 0; cntr < configInfo.build.copy.length; cntr++)
+   for (cntr = 0; cntr < configInfo[buildEntry].copy.length; cntr++)
    {
-      var copyEntry = configInfo.build.copy[cntr];
+      var copyEntry = configInfo[buildEntry].copy[cntr];
 
       /* istanbul ignore if */
       if (typeof copyEntry !== 'object')
       {
          throw new Error(
-          "typhonjs-npm-scripts-build-babel error: 'build.copy' entry `" +cntr
-           +"` is not an `object` in '.npmscriptrc'.");
+          "typhonjs-npm-scripts-build-babel error: '" + buildEntry + ".copy' entry `" +cntr
+           +"` is not an `object` in config file.");
       }
 
       /* istanbul ignore if */
       if (typeof copyEntry.source !== 'string' || typeof copyEntry.destination !== 'string')
       {
          throw new Error(
-          "typhonjs-npm-scripts-build-babel error: 'build.copy' entry `" +cntr
-           + "` has improperly formatted `source` or `destination` fields in '.npmscriptrc'.");
+          "typhonjs-npm-scripts-build-babel error: '" + buildEntry + ".copy' entry `" +cntr
+           + "` has improperly formatted `source` or `destination` fields in config file.");
       }
 
       console.log('typhonjs-npm-scripts-build-babel copy: ' + copyEntry.source + ' ' + copyEntry.destination);
@@ -195,36 +218,36 @@ if (Array.isArray(configInfo.build.copy))
 // Commands / scripts -----------------------------------------------------------------------------------------------
 
 // Potentially run commands or scripts if a scripts array is present
-if (Array.isArray(configInfo.build.scripts))
+if (Array.isArray(configInfo[buildEntry].scripts))
 {
    var runner = require('typhonjs-npm-scripts-runner');
 
-   runner.run('.npmscriptrc', 'build.scripts', 'typhonjs-npm-scripts-build-babel');
+   runner.run(['.npmscriptrc', '.npmscriptrc.js'], buildEntry + '.scripts', 'typhonjs-npm-scripts-build-babel');
 }
 
 // Chmod files ------------------------------------------------------------------------------------------------------
 
 // Potentially chmod files if a chmod array is present
-if (Array.isArray(configInfo.build.chmod))
+if (Array.isArray(configInfo[buildEntry].chmod))
 {
-   for (cntr = 0; cntr < configInfo.build.chmod.length; cntr++)
+   for (cntr = 0; cntr < configInfo[buildEntry].chmod.length; cntr++)
    {
-      var chmodEntry = configInfo.build.chmod[cntr];
+      var chmodEntry = configInfo[buildEntry].chmod[cntr];
 
       /* istanbul ignore if */
       if (typeof chmodEntry !== 'object')
       {
          throw new Error(
-          "typhonjs-npm-scripts-build-babel error: 'build.cntr' chmod `" +cntr
-           +"` is not an `object` in '.npmscriptrc'.");
+          "typhonjs-npm-scripts-build-babel error: '" + buildEntry + ".chmod' `" +cntr
+           +"` is not an `object` in config file.");
       }
 
       /* istanbul ignore if */
       if (typeof chmodEntry.path !== 'string' || typeof chmodEntry.mode !== 'string')
       {
          throw new Error(
-          "typhonjs-npm-scripts-build-babel error: 'build.chmod' entry `" +cntr
-           + "` has improperly formatted `path` or `mode` fields in '.npmscriptrc'.");
+          "typhonjs-npm-scripts-build-babel error: '" + buildEntry + ".chmod' entry `" +cntr
+           + "` has improperly formatted `path` or `mode` fields in config file.");
       }
 
       console.log('typhonjs-npm-scripts-build-babel chmod: ' + chmodEntry.path + ' ' + chmodEntry.mode);
