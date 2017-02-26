@@ -1,3 +1,8 @@
+## 0.5.0 (2017-02-25)
+- Added support for `.npmscriptrc.js` and optional argument handling to pass in a string to target a different 
+  entry in `.npmscriptrc` for test running. 
+- Upgraded typhonjs-npm-scripts-runner - ^0.4.0
+  
 ## 0.5.0 (2017-02-18)
 - Upgraded fs-extra - ^2.0.0
 - Upgraded typhonjs-npm-scripts-runner - ^0.3.0
