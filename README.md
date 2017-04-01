@@ -19,9 +19,13 @@ In addition the following Babel modules are installed that are handy for ES6+ de
 - [babel-eslint](https://www.npmjs.com/package/babel-eslint)
 - [babel-plugin-add-module-exports](https://www.npmjs.com/package/babel-plugin-add-module-exports)
 - [babel-plugin-module-resolver](https://www.npmjs.com/package/babel-plugin-module-resolver)
+- [babel-plugin-transform-export-extensions](https://www.npmjs.com/package/babel-plugin-transform-export-extensions)
 - [babel-plugin-transform-runtime](https://www.npmjs.com/package/babel-plugin-transform-runtime)
-- [babel-preset-latest](https://www.npmjs.com/package/babel-preset-latest)
+- [babel-preset-env](https://www.npmjs.com/package/babel-preset-env)
 - [babel-preset-stage-2](https://www.npmjs.com/package/babel-preset-stage-2)
+
+Breaking changes: 
+- `0.7.0` - babel-preset-latest was swapped out for babel-preset-env. To fix you babel config simply switch `latest` for `env` and see [http://babeljs.io/docs/plugins/preset-env/](http://babeljs.io/docs/plugins/preset-env/) for more info. 
 
 For the latest significant changes please see the [CHANGELOG](https://github.com/typhonjs-node-npm-scripts/typhonjs-npm-scripts-build-babel/blob/master/CHANGELOG.md).
 
@@ -33,7 +37,7 @@ To configure the build script provide this entry in `package.json` scripts entry
 
 ```
   "devDependencies": {
-    "typhonjs-npm-scripts-build-babel": "^0.6.0"
+    "typhonjs-npm-scripts-build-babel": "^0.7.0"
   },
   "scripts": {
     "build": "babel-node ./node_modules/typhonjs-npm-scripts-build-babel/scripts/build.js <optional custom build entry>"
