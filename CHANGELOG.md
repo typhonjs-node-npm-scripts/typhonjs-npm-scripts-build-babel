@@ -1,3 +1,8 @@
+## 0.7.0 (2017-04-01)
+- Added [babel-preset-env](https://www.npmjs.com/package/babel-preset-env)
+- Added [babel-plugin-transform-export-extensions](https://www.npmjs.com/package/babel-plugin-transform-export-extensions)
+- Removed babel-preset-latest
+
 ## 0.6.0 (2017-02-25)
 - Added support for `.npmscriptrc.js` and optional argument handling to pass in a string to target a different 
   entry in `.npmscriptrc` for test running. 
